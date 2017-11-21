@@ -3652,6 +3652,14 @@ via, e.g., Happy Eyeballs {{RFC6555}} or related techniques.
 Any ticket MUST only be resumed with a cipher suite that has the
 same KDF hash algorithm as that used to establish the original connection.
 
+Clients SHOULD attempt to use each ticket no more than once, with
+more recent tickets being used first.  Using the same ticket for
+multiple resumptions allows the resumed sesions to be linked as originating
+from the same full handshake, as viewed by a passive observer.  More
+recent tickets are more likely to be valid with respect to any changes
+that occurred in server configuration, and more likely to reflect any
+updated handshake state (e.g., due to post-handshake client authentication).
+
 Clients MUST only resume if the new SNI value is valid for the server
 certificate presented in the original session, and SHOULD only resume if
 the SNI value matches the one used in the original session.  The latter
